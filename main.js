@@ -4,46 +4,43 @@ let previousOperator;
 
 const screen = document.querySelector('.screen');
 
-function buttonClick(value){
-    if (isNaN(value)){
-        handleSymbol(value)
+function buttonClick(value) {
+    if (isNaN(value)) {
+        handleSymbol(value);
+    } else {
+        handleNumber(value);
     }
-    else{
-        handleNumber(value)
-    }
-    screen.innerHTML=buffer;
+    screen.innerHTML = buffer;
 }
-function handleSymbol(symbol){
-    switch (symbol){
+
+function handleSymbol(symbol) {
+    switch (symbol) {
         case 'C':
-            buffer='0';
-            runningTotal=0;
+            buffer = '0';
+            runningTotal = 0;
             break;
         case '=':
-            if (previousOperator===null){
-                return
+            if (previousOperator === null) {
+                return;
             }
             flushOperation(parseInt(buffer));
-            previousOperator=null;
-            buffer=runningTotal;
-            runningTotal=0;
+            previousOperator = null;
+            buffer = runningTotal.toString();
+            runningTotal = 0;
             break;
         case '←':
-            if(buffer.length===1){
-                buffer='0';
-            }
-            else{
-                buffer=buffer.toString(0,buffer.length-1);
-
+            if (buffer.length === 1) {
+                buffer = '0';
+            } else {
+                buffer = buffer.slice(0, buffer.length - 1);
             }
             break;
         case '+':
-        case'-':
-        case'×':
-        case'÷':
+        case '−':
+        case '×':
+        case '÷':
             handleMath(symbol);
-            break
-
+            break;
     }
 }
 function handleMath(symbol){
@@ -63,7 +60,7 @@ function handleMath(symbol){
 function flushOperation(intBuffer){
     if(previousOperator==='+'){
         runningTotal+=intBuffer;
-    }else if(previousOperator==='-'){
+    }else if(previousOperator==='−'){
         runningTotal-=intBuffer;
     }else if(previousOperator==='×'){
         runningTotal*=intBuffer;
