@@ -79,7 +79,7 @@ function handleNumber(numberString){
     }
 }
 function init(){
-    document.querySelector('.button').
+    document.querySelector('.buttons').
     addEventListener('click', function (event){
         buttonClick(event.target.innerText);
     })
