@@ -1,8 +1,12 @@
 let runningTotal = 0;
 let buffer = "0";
 let previousOperator;
+let ENTER_KEYCODE = 13;
 
-const screen = document.querySelector('.screen');
+let Symbols = ['-','+','*','/','-','−'];
+let Numbers= ['0','1','2','3','4','5','6','7','8','9'];
+
+const inputField  = document.getElementById('inputField');
 
 function buttonClick(value) {
     if (isNaN(value)) {
@@ -10,7 +14,17 @@ function buttonClick(value) {
     } else {
         handleNumber(value);
     }
-    screen.innerHTML = buffer;
+    inputField.value = buffer;
+}
+
+function returningResult(){
+    if (previousOperator === null) {
+        return;
+    }
+    flushOperation(parseInt(buffer));
+    previousOperator = null;
+    buffer = runningTotal.toString();
+    runningTotal = 0;
 }
 
 function handleSymbol(symbol) {
@@ -20,14 +34,8 @@ function handleSymbol(symbol) {
             runningTotal = 0;
             break;
         case '=':
-            if (previousOperator === null) {
-                return;
-            }
-            flushOperation(parseInt(buffer));
-            previousOperator = null;
-            buffer = runningTotal.toString();
-            runningTotal = 0;
-            break;
+            returningResult();
+            break
         case '←':
             if (buffer.length === 1) {
                 buffer = '0';
@@ -39,6 +47,9 @@ function handleSymbol(symbol) {
         case '−':
         case '×':
         case '÷':
+        case '*':
+        case '/':
+        case '-':
             handleMath(symbol);
             break;
     }
@@ -58,13 +69,13 @@ function handleMath(symbol){
     buffer='0'
 }
 function flushOperation(intBuffer){
-    if(previousOperator==='+'){
+    if(previousOperator==='+'||previousOperator==='+'){
         runningTotal+=intBuffer;
-    }else if(previousOperator==='−'){
+    }else if(previousOperator==='−'||previousOperator==='-'){
         runningTotal-=intBuffer;
-    }else if(previousOperator==='×'){
+    }else if(previousOperator==='×'||previousOperator==='*'){
         runningTotal*=intBuffer;
-    }else if(previousOperator==='÷'){
+    }else if(previousOperator==='÷'||previousOperator==='/'){
         runningTotal/=intBuffer;
     }
 }
@@ -75,10 +86,26 @@ function handleNumber(numberString){
         buffer+=numberString;
     }
 }
+function handClick(value){
+    console.log(value.key)
+    if (Symbols.includes(value.key)) {
+        //value.preventDefault();
+        handleSymbol(value.key);
+    }else if(Numbers.includes(value.key)) {
+        //value.preventDefault();
+        handleNumber(value.key);
+    }else if (value.key === 'Enter' || value.key === '=') {
+        handleSymbol('=');
+    }
+    inputField.value = buffer;
+}
 function init(){
     document.querySelector('.buttons').
     addEventListener('click', function (event){
         buttonClick(event.target.innerText);
+    })
+    document.addEventListener("keypress",function (event){
+        handClick(event);
     })
 }
 init()

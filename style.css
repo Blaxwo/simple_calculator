@@ -6,6 +6,7 @@ body{
     margin: 0;
 }
 .wrapper{
+    margin-top: 5%;
     border-radius: 16px;
     color: black;
     flex-basis: 400px;
