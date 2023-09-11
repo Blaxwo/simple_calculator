@@ -40,7 +40,7 @@ body{
     height: 65px;
 }
 .button:last-child{
-    border-radius: 0;
+    border-radius: 10px;
     border-left: 3px solid white;
 }
 .button:hover{
