@@ -1,35 +1,29 @@
 body{
-    align-items: center;
     /*background: linear-gradient(320deg, #646F75, #774E2E);*/
     display: flex;
     font-family: 'Quicksand', sans-serif;
-    height: inherit;
     justify-content: center;
+    margin: 0;
 }
 .wrapper{
     border-radius: 16px;
-    background: white;
-    box-shadow: 0 4px 30px rgba(35,35,35,0.1);
     color: black;
-    border: 1px solid black;
     flex-basis: 400px;
-    height: 540px;
     padding: 20px 35px;
     z-index: 999;
-    width: 100vw;
     transition: background-color .3s ease-in-out;
     text-shadow: black 1px 1px 2px;
 }
 .screen{
-    background: white;
-    border: 1px solid black;
-    border-radius: 16px;
-    font-size: 35px;
-    color: black;
+    background: none;
+    border: 3px solid white;
+    border-radius: 30px;
+    color: white;
+    width: auto;
+    font-size: 40px;
     overflow: auto;
     padding: 20px;
     text-align: right;
-    width: 326px;
 }
 .buttons-row{
     display: flex;
@@ -37,25 +31,21 @@ body{
     margin: 5% 0;
 }
 .button{
-    background: white;
-    border: 1px solid black;
-    border-radius: 16px;
-    box-shadow: 0 4px 30px black;
-    color: black;
+    background: none;
+    border: 3px solid white;
+    border-radius: 30px;
+    color: white;
     flex-basis: 20%;
-    font-size: 24px;
+    font-size: 30px;
     height: 65px;
 }
 .button:last-child{
-    background: #774E2E;
-    color: white;
-}
-.button:last-child:hover{
-    background-color: inherit;
-    color: inherit;
+    border-radius: 0;
+    border-left: 3px solid white;
 }
 .button:hover{
-    background-color: inherit;
+    background-color: white;
+    color: inherit;
 }
 .double{
     flex-basis: 47%;
@@ -67,12 +57,13 @@ body{
 {
     width: 100%;
     height: 100%;
-    position: absolute;
+    /*position: absolute;*/
+    position: fixed;
     background: linear-gradient(125deg, #00103a 0%, #3e5f77 100%);
 }
 .sky-container {
-    width: 100vh;
-    height: 100vh;
+    width: 82%;
+    height: 100%;
     transform: rotateZ(45deg);
     position: absolute;
     z-index: 960;
