@@ -2,7 +2,7 @@ body{
     align-items: center;
     background: linear-gradient(320deg, #646F75, #774E2E);
     display: flex;
-
+    font-family: 'Quicksand', sans-serif;
     height: inherit;
     justify-content: center;
 
