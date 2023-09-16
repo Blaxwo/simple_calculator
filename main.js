@@ -1,7 +1,6 @@
 let runningTotal = 0;
 let buffer = "0";
-let previousOperator;
-let ENTER_KEYCODE = 13;
+let previousOperator=null;
 
 let Symbols = ['-','+','*','/','-','−'];
 let Numbers= ['0','1','2','3','4','5','6','7','8','9'];
@@ -16,17 +15,6 @@ function buttonClick(value) {
     }
     inputField.value = buffer;
 }
-
-function returningResult(){
-    if (previousOperator === null) {
-        return;
-    }
-    flushOperation(parseInt(buffer));
-    previousOperator = null;
-    buffer = runningTotal.toString();
-    runningTotal = 0;
-}
-
 function handleSymbol(symbol) {
     switch (symbol) {
         case 'C':
@@ -34,7 +22,13 @@ function handleSymbol(symbol) {
             runningTotal = 0;
             break;
         case '=':
-            returningResult();
+            if (previousOperator === null) {
+                return;
+            }
+            flushOperation(parseInt(buffer));
+            previousOperator = null;
+            buffer = runningTotal.toString();
+            runningTotal = 0;
             break
         case '←':
             if (buffer.length === 1) {
@@ -86,26 +80,23 @@ function handleNumber(numberString){
         buffer+=numberString;
     }
 }
-function handClick(value){
-    console.log(value.key)
-    if (Symbols.includes(value.key)) {
-        //value.preventDefault();
-        handleSymbol(value.key);
-    }else if(Numbers.includes(value.key)) {
-        //value.preventDefault();
-        handleNumber(value.key);
-    }else if (value.key === 'Enter' || value.key === '=') {
-        handleSymbol('=');
-    }
-    inputField.value = buffer;
-}
 function init(){
     document.querySelector('.buttons').
     addEventListener('click', function (event){
         buttonClick(event.target.innerText);
     })
-    document.addEventListener("keypress",function (event){
-        handClick(event);
+    document.addEventListener("keydown",function (event){
+        console.log(event.key)
+        if (isNaN(event.key)) {
+            if(event.key==='Enter'){
+                event.preventDefault();
+                handleSymbol('=');
+            }
+            handleSymbol(event.key);
+        } else {
+            handleNumber(event.key);
+        }
+        inputField.value = buffer;
     })
 }
 init()
